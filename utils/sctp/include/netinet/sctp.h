@@ -37,9 +37,7 @@
 #include <linux/types.h>
 #include <sys/socket.h>
 
-__BEGIN_DECLS
-
-typedef __s32 sctp_assoc_t;
+typedef int32_t sctp_assoc_t;
 
 /* Socket option layer for SCTP */
 #ifndef SOL_SCTP
@@ -658,7 +656,7 @@ struct sctp_assoc_value {
 struct sctp_paddrinfo {
 	sctp_assoc_t		spinfo_assoc_id;
 	struct sockaddr_storage	spinfo_address;
-	__s32			spinfo_state;
+	int32_t			spinfo_state;
 	__u32			spinfo_cwnd;
 	__u32			spinfo_srtt;
 	__u32			spinfo_rto;
@@ -693,7 +691,7 @@ enum sctp_spinfo_state {
  */
 struct sctp_status {
 	sctp_assoc_t		sstat_assoc_id;
-	__s32			sstat_state;
+	int32_t			sstat_state;
 	__u32			sstat_rwnd;
 	__u16			sstat_unackdata;
 	__u16			sstat_penddata;
@@ -861,7 +859,5 @@ int sctp_recvmsg(int s, void *msg, size_t len, struct sockaddr *from,
 
 /* Return the address length for an address family. */
 int sctp_getaddrlen(sa_family_t family);
-
-__END_DECLS
 
 #endif /* __linux_sctp_h__ */

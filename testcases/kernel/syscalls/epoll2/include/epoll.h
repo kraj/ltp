@@ -84,9 +84,6 @@ struct epoll_event
   epoll_data_t data;	/* User data variable */
 } EPOLL_PACKED;
 
-
-__BEGIN_DECLS
-
 /* Creates an epoll instance.  Returns an fd for the new instance.
    The "size" parameter is a hint specifying the number of file
    descriptors to be associated with the new instance.  The fd
@@ -113,7 +110,5 @@ extern int epoll_ctl (int __epfd, int __op, int __fd,
    specifies the maximum wait time in milliseconds (-1 == infinite).  */
 extern int epoll_wait (int __epfd, struct epoll_event *__events,
 		       int __maxevents, int __timeout) __THROW;
-
-__END_DECLS
 
 #endif /* sys/epoll.h */
