@@ -41,7 +41,7 @@ struct kernel_sigaction {
 };
 #else
 struct kernel_sigaction {
-	__sighandler_t k_sa_handler;
+	sig_t k_sa_handler;
 	unsigned long sa_flags;
 	void (*sa_restorer) (void);
 	sigset_t sa_mask;
