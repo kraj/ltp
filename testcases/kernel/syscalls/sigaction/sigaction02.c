@@ -91,7 +91,7 @@ int set_handler(int sig, int sig_to_mask, int flag)
 
 	if (flag == 0) {
 		sa.sa_sigaction = (void *)handler;
-		sa.sa_flags = SA_NOMASK;
+		sa.sa_flags = SA_NODEFER;
 		sigemptyset(&sa.sa_mask);
 		sigaddset(&sa.sa_mask, sig_to_mask);
 		err = sigaction(sig, &sa, NULL);

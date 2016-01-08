@@ -49,7 +49,7 @@ stress test at the same time you run other tests, like a multi-user
 benchmark.
 
 */
-
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -409,7 +409,7 @@ void my_signal(int sig, void (*func) ())
 
 	act.sa_handler = func;
 	memset(&act.sa_mask, 0x00, sizeof(sigset_t));
-	act.sa_flags = SA_NOMASK | SA_RESTART;
+	act.sa_flags = SA_NODEFER | SA_RESTART;
 	sigaction(sig, &act, 0);
 }
 

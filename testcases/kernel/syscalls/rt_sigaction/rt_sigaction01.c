@@ -57,10 +57,10 @@ static void setup(void)
 
 static int test_flags[] =
     { SA_RESETHAND | SA_SIGINFO, SA_RESETHAND, SA_RESETHAND | SA_SIGINFO,
-SA_RESETHAND | SA_SIGINFO, SA_NOMASK };
+SA_RESETHAND | SA_SIGINFO, SA_NODEFER };
 char *test_flags_list[] =
     { "SA_RESETHAND|SA_SIGINFO", "SA_RESETHAND", "SA_RESETHAND|SA_SIGINFO",
-"SA_RESETHAND|SA_SIGINFO", "SA_NOMASK" };
+"SA_RESETHAND|SA_SIGINFO", "SA_NODEFER" };
 
 static void handler(int sig)
 {
