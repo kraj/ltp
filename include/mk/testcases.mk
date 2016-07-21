@@ -49,7 +49,7 @@ CPPFLAGS	+= -I$(abs_top_builddir)/$(TKI_DIR)
 
 INSTALL_DIR	:= testcases/bin
 
-LDLIBS		+= -lltp
+LDLIBS		+= -lltp -lpthread
 
 $(APICMDS_DIR) $(LIBLTP_DIR) $(abs_top_builddir)/$(TKI_DIR): %:
 	mkdir -p "$@"

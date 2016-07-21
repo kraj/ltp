@@ -6,5 +6,5 @@ libdir=@libdir@
 Name: LTP
 Description: Linux Test Project
 Version: @VERSION@
-Libs: -L${libdir} -lltp
+Libs: -L${libdir} -lltp -lpthread
 Cflags: -I${includedir}

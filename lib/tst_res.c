@@ -79,7 +79,8 @@ int TEST_ERRNO;
 	assert(strlen(buf) > 0);		\
 } while (0)
 
-static pthread_mutex_t tmutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;
+static pthread_once_t tmutex_once = PTHREAD_ONCE_INIT;
+static pthread_mutex_t tmutex;
 
 static void check_env(void);
 static void tst_condense(int tnum, int ttype, const char *tmesg);
@@ -142,9 +143,20 @@ const char *strttype(int ttype)
 #include "errnos.h"
 #include "signame.h"
 
+static void init_tmutex(void)
+{
+	pthread_mutexattr_t attr;
+
+	pthread_mutexattr_init(&attr);
+	pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+	pthread_mutex_init(&tmutex, &attr);
+	pthread_mutexattr_destroy(&attr);
+}
+
 static void tst_res__(const char *file, const int lineno, int ttype,
                       const char *arg_fmt, ...)
 {
+	pthread_once(&tmutex_once, init_tmutex);
 	pthread_mutex_lock(&tmutex);
 
 	char tmesg[USERMESG];
@@ -233,6 +245,7 @@ void tst_flush(void)
 {
 	NO_NEWLIB_ASSERT("Unknown", 0);
 
+	pthread_once(&tmutex_once, init_tmutex);
 	pthread_mutex_lock(&tmutex);
 
 	/*
@@ -369,6 +382,7 @@ void tst_exit(void)
 {
 	NO_NEWLIB_ASSERT("Unknown", 0);
 
+	pthread_once(&tmutex_once, init_tmutex);
 	pthread_mutex_lock(&tmutex);
 
 	tst_flush();
@@ -441,6 +455,7 @@ static int tst_brk_entered = 0;
 static void tst_brk__(const char *file, const int lineno, int ttype,
                       void (*func)(void), const char *arg_fmt, ...)
 {
+	pthread_once(&tmutex_once, init_tmutex);
 	pthread_mutex_lock(&tmutex);
 
 	char tmesg[USERMESG];
