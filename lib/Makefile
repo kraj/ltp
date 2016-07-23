@@ -26,6 +26,10 @@ include $(top_srcdir)/include/mk/env_pre.mk
 
 CFLAGS			+= -I.
 
+ifeq ($(LIBC),musl)
+CFLAGS			+= -D__SIGRTMIN=32 -D__SIGRTMAX=64
+endif
+
 FILTER_OUT_LIBSRCS	:= mount_utils.c
 
 LIB			:= libltp.a
