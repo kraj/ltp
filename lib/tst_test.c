@@ -41,14 +41,6 @@ static int iterations = 1;
 static float duration = -1;
 static pid_t main_pid, lib_pid;
 
-struct results {
-	int passed;
-	int skipped;
-	int failed;
-	int warnings;
-	unsigned int timeout;
-};
-
 static struct results *results;
 
 static int ipc_fd;
